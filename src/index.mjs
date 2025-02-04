@@ -1,7 +1,12 @@
 import express from "express";
 import dotenv from "dotenv";
-import { connectDB } from "./database.mjs";
 import webhookRouter from './routes/webhook.mjs'
+
+//DB
+import mongoose from "./database.mjs";
+import Hospitals_name from "./utils/hospitalList.mjs";
+
+
 
 // configurations
 dotenv.config();
@@ -15,12 +20,21 @@ app.use(express.json());
 app.use('/webhook', webhookRouter);
 
 // default endpoint
-app.get("/", (req, res) => { res.status(200).json({ message: `server is up and running at PORT : ${port}` }) });
+app.get("/", (req, res) => {
+	res.status(200).json({ message: `server is up and running at PORT : ${port}` })
+});
 
 // server initialization
-try {
-	// connectDB();
-	app.listen(port, () => { console.log(`App listening on port ${port}`) });
-} catch (error) {console.error(error);}
 
+try {
+	if (mongoose.connection.readyState) {
+		app.listen(port, () => { console.log(`App listening on port ${port}`) });
+	}
+}
+catch (error) {
+	console.error(error);
+	process.exit(1)
+}
+
+// Hospitals_name('Nagaland', 'Dimapur');
 

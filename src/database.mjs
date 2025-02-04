@@ -1,27 +1,18 @@
-import { MongoClient, ServerApiVersion } from "mongodb";
 import dotenv from "dotenv";
-import { Router } from "express";
+import mongoose from 'mongoose';
 
 dotenv.config();
 
 const uri = process.env.MONGO_URI;
 
-// Create a MongoClient
-const client = new MongoClient(uri, {
-    serverApi: {
-        version: ServerApiVersion.v1,
-        strict: true,
-        deprecationErrors: true,
-    }
-});
+dotenv.config();
 
-export const connectDB = async () => {
-    try {
-        await client.connect();
-        await client.db("admin").command({ ping: 1 });
-        console.log("Pinged your deployment. You successfully connected to MongoDB!");
-    } catch (error) {
-        console.log("Could not connect to database\n", error)
-    }
-}
+mongoose.connect(uri)
+    .then(() => {
+            console.log(`Connected to database`);
+    }).catch((error) => {
+        console.log(`DB Connection-state value: ${mongoose.connection.readyState}`);
+        console.log(`Could not Connected to database ${error}`);
+    })
 
+export default mongoose;
