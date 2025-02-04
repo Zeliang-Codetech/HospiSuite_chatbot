@@ -4,7 +4,6 @@ import webhookRouter from './routes/webhook.mjs'
 
 //DB
 import mongoose from "./database.mjs";
-import Hospitals_name from "./utils/hospitalList.mjs";
 
 
 
@@ -35,6 +34,3 @@ catch (error) {
 	console.error(error);
 	process.exit(1)
 }
-
-// Hospitals_name('Nagaland', 'Dimapur');
-
