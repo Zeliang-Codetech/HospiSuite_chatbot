@@ -53,14 +53,14 @@ export const greetingService = async (userNumber, userName, req, res) => {
               type: "reply",
               reply: {
                 id: "id2",
-                title: " Health Schemes",
+                title: "Health & Insurance",
               },
             },
             {
               type: "reply",
               reply: {
                 id: "id3",
-                title: "Insurance Schemes",
+                title: "Empaneled Hospitals",
               },
             },
           ],
