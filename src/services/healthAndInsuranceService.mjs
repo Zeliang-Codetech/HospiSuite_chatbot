@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const body =
-  "This is the health and insurance message from the backend";
+  "Ayushman Bharat offers key health and insurance schemes to make healthcare more accessible and affordable. The PMJAY provides health insurance coverage up to ₹5 lakh per family for secondary and tertiary care, offering cashless treatment at empaneled hospitals. The Health and Wellness Centres (AB-HWCs) focus on primary healthcare, covering maternal, child health, and chronic disease management. Together, these schemes ensure inclusive and affordable healthcare nationwide, supported by digital infrastructure.";
 
 export const HealthAndInsuranceService = async (userNumber) => {
   const options = {
@@ -22,13 +22,13 @@ export const HealthAndInsuranceService = async (userNumber) => {
         type: "button",
         header: {
           type: "text",
-          text: "ABDM HEALTH SCHEMES",
+          text: "ABDM HEALTH & INSURANCE SCHEMES",
         },
         body: {
           text: body,
         },
         footer: {
-          text: "Click below to read more.",
+          text: "Click below to read more on...",
         },
         action: {
           buttons: [

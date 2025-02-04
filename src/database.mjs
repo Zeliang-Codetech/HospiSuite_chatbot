@@ -4,7 +4,6 @@ import mongoose from 'mongoose';
 dotenv.config();
 
 const uri = process.env.MONGO_URI;
-
 dotenv.config();
 
 mongoose.connect(uri)

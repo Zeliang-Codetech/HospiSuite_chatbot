@@ -5,8 +5,6 @@ import webhookRouter from './routes/webhook.mjs'
 //DB
 import mongoose from "./database.mjs";
 
-
-
 // configurations
 dotenv.config();
 const app = express();
@@ -22,7 +20,6 @@ app.use('/webhook', webhookRouter);
 app.get("/", (req, res) => {
 	res.status(200).json({ message: `server is up and running at PORT : ${port}` })
 });
-
 // server initialization
 
 try {
