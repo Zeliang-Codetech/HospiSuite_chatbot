@@ -1,7 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import webhookRouter from './routes/webhook.mjs'
-
+import  Hospitals_name  from "./utils/hospitalList.mjs";
 //DB
 import mongoose from "./database.mjs";
 
@@ -23,7 +23,8 @@ app.get("/", (req, res) => {
 // server initialization
 
 try {
-	if (mongoose.connection.readyState) {
+  if (mongoose.connection.readyState) {
+    console.log(`connection state: ${mongoose.connection.readyState}`);
     app.listen(port, () => {
       console.log(`App listening on port ${port}`);
     });
@@ -33,3 +34,6 @@ catch (error) {
 	console.error(error);
 	process.exit(1);
 }
+
+Hospitals_name('dimapur');
+

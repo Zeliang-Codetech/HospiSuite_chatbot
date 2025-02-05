@@ -1,6 +1,6 @@
 import { multimediaError } from "../services/MultimediaErrorService.mjs";
 
-export const getUserData = (req, res, next) => {
+export const getUserData = async (req, res, next) => {
   try {
     console.log("Incoming webhook payload:", JSON.stringify(req.body, null, 2));
     let user = {};
@@ -45,6 +45,10 @@ export const getUserData = (req, res, next) => {
         interactiveType,
         messageText,
       });
+
+      // call the db here and ckeck the num
+      // if it exists returns true and if it does not exist we store it 
+      
     }
 
     // Validate the message

@@ -32,19 +32,6 @@
   const serviceRouterforStateLists = {
     "nagaland": districtSelectionService,
   };
-  // const serviceRouterforDistrictLists = {
-  //   "dimapur": listOfDistrictHospitals,
-  //   "kohima": listOfDistrictHospitals,
-  //   "mokokchung": listOfDistrictHospitals,
-  //   "phek": listOfDistrictHospitals,
-  //   "peren": listOfDistrictHospitals,
-  //   "mon": listOfDistrictHospitals,
-  //   "tuensang": listOfDistrictHospitals,
-  //   "chumoukedima": listOfDistrictHospitals,
-  //   "zunheboto": listOfDistrictHospitals,
-  //   "wokha": listOfDistrictHospitals,
-  // };
-
   export const webhookController = async (req, res) => {
     let senderNumber = req.user.sender;
     let senderName = req.body.customer_name;
