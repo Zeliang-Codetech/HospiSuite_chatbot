@@ -24,10 +24,12 @@ app.get("/", (req, res) => {
 
 try {
 	if (mongoose.connection.readyState) {
-		app.listen(port, () => { console.log(`App listening on port ${port}`) });
-	}
+    app.listen(port, () => {
+      console.log(`App listening on port ${port}`);
+    });
+  }
 }
 catch (error) {
 	console.error(error);
-	process.exit(1)
+	process.exit(1);
 }

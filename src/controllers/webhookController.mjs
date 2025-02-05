@@ -53,43 +53,6 @@
     let location = req?.location; 
     let result =null;
     try {
-      // switch (req.state) {
-      //   case "greeting":
-      //     result = await greetingService(senderNumber, senderName);
-      //     break;
-      //   case "health schemes":
-      //     result = await healthSchemeService(senderNumber);
-      //     break;
-      //   case "more about pm-jay":
-      //     result = await pmJayInfoService(senderNumber);
-      //     break;
-      //   case "more on hwcs":
-      //     result = await hwcService(senderNumber);
-      //     break;
-      //   case "\u2630 menu":
-      //     result = await resendOptionsService(senderNumber);
-      //     break;
-      //   case "abha registration":
-      //     result = await abhaRegistrationService(senderNumber);
-      //     break;
-      //   case "insurance schemes":
-      //     result = await insuranceSchemes(senderNumber);
-      //     break;
-      //   case "health & insurance":
-      //     result = await HealthAndInsuranceService(senderNumber);
-      //     break;
-      //   case "empaneled hospitals":
-      //     result = await stateSelectionService(senderNumber);
-      //     break;
-      //   case "state":
-      //     result = await empaneledHospitalService(senderNumber);
-      //     break;
-      //   default:
-      //     console.log(
-      //       "user typed a query, passing control to aiResponseService ----->"
-      //     );
-      //     break;
-      // }
       const buttonBasedService = serviceRouterforButtons[userMessage];
       const listBasedServiceforState = serviceRouterforStateLists[location];
       // const listBasedServiceforDistrict = serviceRouterforDistrictLists[location];

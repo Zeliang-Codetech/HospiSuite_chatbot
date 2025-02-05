@@ -30,14 +30,14 @@ let linkKeywords = /insurance|registration|health schemes|pmjay|hwcs|register/i;
        let chatHistoryString = chatHistory
          .map((entry) => `User: ${entry.query}\nAI: ${entry.aiResponse}`)
          .join("\n");
-       userPrompt = `${query}\n\nChat history:\n${chatHistoryString}\n\nYour role: ${healthQueries}`;
+       userPrompt = `Chat history:\n${chatHistoryString}\n\n Your role: ${healthQueries}\n\n userQuery: ${query}`;
         console.log("query matches standard chat");
         console.log("Chat History:", JSON.stringify(chatHistory, null, 2));
 
       } 
       const prompt = userPrompt;
       const result = await model.generateContent(prompt);
-      if (chatHistory.length > 10) {
+      if (chatHistory.length > 5) {
         chatHistory.shift();
       }
       chatHistory.push({ query: query, aiResponse: result.response.text() });
