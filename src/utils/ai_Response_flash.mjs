@@ -7,7 +7,7 @@
   const model = genAI.getGenerativeModel({
     model: "gemini-1.5-flash",
     generationConfig: {
-      maxOutputTokens: 180, // Ensures response stays within 1024 characters
+      maxOutputTokens: 160, // Ensures response stays within 1024 characters
     },
   });
 
