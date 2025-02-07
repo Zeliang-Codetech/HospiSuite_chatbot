@@ -1,11 +1,11 @@
 import axios from "axios";
 import dotenv from "dotenv";
 dotenv.config();
-
 const body =
-  "You can create your ABHA (Ayushman Bharat Health Account) by following these simple steps: \n\n1. Visit the official ABHA registration portal here: https://abha.abdm.gov.in/abha/v3/register\n\n2. Choose your preferred registration method - you can use your Aadhaar or any other valid ID document.\n\n3. Enter your personal details and verify your mobile number through OTP.\n\n4. After verification, you'll get your unique ABHA number and ID.\n\n5. Download your ABHA card and save it for future healthcare visits.";
+  "Your feedback helps us improve! ✨\n\nTake a moment to share your thoughts:\n👉(https://forms.gle/GUdjUkz8LdRrS1rA6)";
 
-export const abhaRegistrationService = async (userNumber) => {
+
+export const feedbackService = async (userNumber) => {
   const options = {
     method: "POST",
     url: "https://control.msg91.com/api/v5/whatsapp/whatsapp-outbound-message/",
@@ -22,13 +22,13 @@ export const abhaRegistrationService = async (userNumber) => {
         type: "button",
         header: {
           type: "text",
-          text: "ABHA Registration",
+          text: "🤖 Help Us Improve Hospisuite!",
         },
         body: {
           text: body,
         },
         footer: {
-          text: "Need more help? Tap the Menu button to explore options! 🤖✨",
+          text: "Tap the *Menu* button to explore main options.",
         },
         action: {
           buttons: [
@@ -36,14 +36,7 @@ export const abhaRegistrationService = async (userNumber) => {
               type: "reply",
               reply: {
                 id: "ID_1",
-                title: " \u2630 Menu",
-              },
-            },
-            {
-              type: "reply",
-              reply: {
-                id: "ID_2",
-                title: "Improve Hospisuite!",
+                title: "\u2630 Menu",
               },
             },
           ],
@@ -56,17 +49,17 @@ export const abhaRegistrationService = async (userNumber) => {
     const response = await axios.request(options);
     return {
       success: true,
-      message: "ABHA registration interactive message sent successfully",
+      message: "Feedback message sent successfully",
       data: response.data,
     };
   } catch (error) {
     console.error(
-      "Error sending ABHA registration interactive message:",
+      "Error sending Feedback message:",
       error.response ? error.response.data : error.message
     );
     return {
       success: false,
-      error: "Failed to send ABHA registration message",
+      error: "Failed to send Feedback message",
       details: error.response ? error.response.data : error.message,
     };
   }

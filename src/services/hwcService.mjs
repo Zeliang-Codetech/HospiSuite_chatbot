@@ -38,6 +38,13 @@ export const hwcService = async (userNumber) => {
                 title: "\u2630 Menu",
               },
             },
+            {
+              type: "reply",
+              reply: {
+                id: "ID_2",
+                title: "Improve Hospisuite!",
+              },
+            },
           ],
         },
       },

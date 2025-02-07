@@ -88,6 +88,7 @@ export const setUserState = (req, res, next) => {
         case "empaneled hospitals":
         case "\u2630 menu":
         case "state":
+        case "improve hospisuite!":
           req.userMsg = formattedMsg;
           req.query = "";
           break;
