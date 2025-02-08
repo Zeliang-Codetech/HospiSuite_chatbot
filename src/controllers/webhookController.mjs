@@ -33,6 +33,7 @@ const serviceRouterforButtons = {
 const serviceRouterforStateLists = {
   nagaland: districtSelectionService,
 };
+
 export const webhookController = async (req, res) => {
   let senderNumber = req.user.sender;
   let senderName = req.body.customer_name;
@@ -59,9 +60,13 @@ export const webhookController = async (req, res) => {
 
     // Prompting the AI
     if (req.query != "") {
-      try {
+      try { 
+        // get the laetst 5  || [] chatHisotry for the user here 
+        // let userHistory = getUserChat(userNumber);
+        // send the query, the chathistory from the db and the user number to the AI service
+        // result = await callGeminiFlash(req.query, userHistory, userNumber);
         result = await callGeminiFlash(req.query);
-        console.log("Gemini Flash Response:", result);
+        // console.log("Gemini Flash Response:", result);
       } catch (error) {
         console.error("Gemini-flash failed:", error);
         result = {

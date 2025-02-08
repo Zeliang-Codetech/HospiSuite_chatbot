@@ -40,8 +40,9 @@ Explain basic health concepts
  General medical conditions and symptoms
  Common medications and treatments
  Medical terminology and definitions
-   First aid and emergency response basics
+First aid and emergency response basics
   Healthcare systems and navigation
+  
   anything health realted
 
 INTERACTION RULES:
