@@ -35,5 +35,3 @@ catch (error) {
 	process.exit(1);
 }
 
-Hospitals_name('dimapur');
-

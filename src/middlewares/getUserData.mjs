@@ -1,5 +1,6 @@
 import { multimediaError } from "../services/MultimediaErrorService.mjs";
-
+import { checkUser } from "../utils/checkUser.mjs";
+import { isOnlyEmoji } from "../utils/detectUserName.mjs";
 export const getUserData = async (req, res, next) => {
   try {
     console.log("Incoming webhook payload:", JSON.stringify(req.body, null, 2));
@@ -46,9 +47,18 @@ export const getUserData = async (req, res, next) => {
         messageText,
       });
 
-      // call the db here and ckeck the num
-      // if it exists returns true and if it does not exist we store it 
-      
+      //checking  info of user
+      //if it does not exist we store it.
+      const name = '';
+
+      let userName = isOnlyEmoji(user.name);
+      if (!userName) {
+        name = user.name;
+      } else {
+        name = "unknown";
+      }
+
+      checkUser(name, parseInt(user.sender));    //calling db operation for user info
     }
 
     // Validate the message
