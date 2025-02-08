@@ -4,6 +4,7 @@ import webhookRouter from './routes/webhook.mjs'
 import  Hospitals_name  from "./utils/hospitalList.mjs";
 //DB
 import mongoose from "./database.mjs";
+import { checkUser } from "./utils/checkUser.mjs";
 
 // configurations
 dotenv.config();

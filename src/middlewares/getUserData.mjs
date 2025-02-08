@@ -49,7 +49,7 @@ export const getUserData = async (req, res, next) => {
 
       //checking  info of user
       //if it does not exist we store it.
-      const name = '';
+      let name = '';
 
       let userName = isOnlyEmoji(user.name);
       if (!userName) {
