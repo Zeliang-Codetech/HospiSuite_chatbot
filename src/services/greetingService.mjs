@@ -11,9 +11,9 @@ export const greetingService = async (userNumber, userName, req, res) => {
   let body;
 
   if (isNameOnlyEmoji == true || isNameOnlySpecialChars == true) {
-    body = `Namaste 🙏, I’m HospiSuite, your Healthcare WhatsApp assistant.what can I help you with today ? In case you're interested here's a quick and easy way to know more about our services.`;
+    body = `Namaste 🙏, I’m HospiSuite, your Healthcare WhatsApp assistant. What can I help you with today? In case you're interested here's a quick and easy way to know more about our services.`;
   } else {
-    body = `Namaste  *${userName}* 🙏,  I’m HospiSuite, your Healthcare WhatsApp assistant.what can I help you with today ? In case you're interested here's a quick and easy way to know more about our services.`;
+    body = `Namaste  *${userName}* 🙏,  I’m HospiSuite, your Healthcare WhatsApp assistant. What can I help you with today? In case you're interested here's a quick and easy way to know more about our services.`;
   }
 
   const options = {
@@ -45,7 +45,7 @@ export const greetingService = async (userNumber, userName, req, res) => {
             {
               type: "reply",
               reply: {
-                id: "ID_1",
+                id: "id1",
                 title: " Abha Registration",
               },
             },

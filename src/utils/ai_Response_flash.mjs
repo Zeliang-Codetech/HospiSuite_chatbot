@@ -1,5 +1,5 @@
 import dotenv from "dotenv";
-import { healthQueries, founder, linkGuidelines } from "./ai_prompt_roles.mjs";
+import { healthQueries, linkGuidelines } from "./ai_prompt_roles.mjs";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 dotenv.config();
 
@@ -12,8 +12,7 @@ const model = genAI.getGenerativeModel({
 });
 let chatHistory = [];
 // keywords regex i makes the words case-agnostic : white spaces can cause issues
-let founderKeywords =
-  /zeliang|codetech|zeliang codetech|zc|founded zeliang|founded zc|ceo zeliang/i;
+
 let linkKeywords = /insurance|registration|health schemes|pmjay|hwcs|register/i;
 let userPrompt;
 
@@ -24,9 +23,6 @@ export const callGeminiFlash = async (query) => {
     if (linkKeywords.test(query)) {
       userPrompt = linkGuidelines + query;
       console.log("query matches link keywords");
-    } else if (founderKeywords.test(query)) {
-      userPrompt = founder + query;
-      console.log("query matches founder keywords");
     } else {
       let chatHistoryString = chatHistory
         .map((entry) => `User: ${entry.query}\nAI: ${entry.aiResponse}`)
