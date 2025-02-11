@@ -27,11 +27,6 @@ export const getchatHistory = async (number) => {
                 // 'chatHistory._id': 0,
                 'chatHistory': {
                     $slice: -5,
-                    // $eleMatch: {
-                    //     _id: 0,
-                    //     query: 1,
-                    //     response: 1
-                    // }
                 },
             });
         console.log(`storeChat result : ${fetchHistory}`);

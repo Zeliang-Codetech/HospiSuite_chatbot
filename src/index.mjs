@@ -36,15 +36,3 @@ catch (error) {
 	console.error(error);
 	process.exit(1);
 }
-
-
-const chat = {
-  query: "",
-  response: "!"
-}
-
-
-// checkUser('react','010101010101');
-// chatStore('010101010101',chat);
-// let history = getchatHistory('1234543321');
-// console.log(history);

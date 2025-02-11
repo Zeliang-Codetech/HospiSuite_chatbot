@@ -63,11 +63,8 @@ export const webhookController = async (req, res) => {
     if (req.query != "") {
       try { 
         // get the laetst 5  || [] chatHisotry for the user here 
-        // const userChatHistory = getHistory(req.user.sender);
         let userChatHistory = await getchatHistory(req.user.sender);    //fetching AI-chat history 
-        // console.log(`userChatHistory=> \n${userChatHistory}`);
         // // send the query, the chathistory from the db and the user number to the AI service
-        // console.log(`Printing history and number in controller=>\n${userChatHistory} , ${req.user.sender}`);
         result = await callGeminiFlash(req.query, userChatHistory, req.user.sender);    
         // result = await callGeminiFlash(req.query);   
         console.log("Gemini Flash Response:", result);

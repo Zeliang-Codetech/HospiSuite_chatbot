@@ -13,24 +13,17 @@ const model = genAI.getGenerativeModel({
 });
 // let chatHistory = [];
 // keywords regex i makes the words case-agnostic : white spaces can cause issues
-let founderKeywords =
-	/zeliang|codetech|zeliang codetech|zc|founded zeliang|founded zc|ceo zeliang/i;
 let linkKeywords = /insurance|registration|health schemes|pmjay|hwcs|register/i;
 let userPrompt;
 
 export const callGeminiFlash = async (query, chatHistory, userNumber) => {
 	let history = chatHistory.chatHistory;
-	console.log(`\nPrinting query= ${query}, \nchatHistory= ${history}^&*^&*^&*^&*^&*\nuserNumber => ${userNumber}\n `);
-
 	// let chatHistory = chatHistory;
 	try {
 		// detect what type of query it is (either health querries , ....)
 		if (linkKeywords.test(query)) {
 			userPrompt = linkGuidelines + query;
 			console.log("query matches link keywords");
-		} else if (founderKeywords.test(query)) {
-			userPrompt = founder + query;
-			console.log("query matches founder keywords");
 		} else {
 			let chatHistoryString = history
 				.map((entry) => `User: ${entry.query}\nAI: ${entry.response}`)
@@ -40,7 +33,6 @@ export const callGeminiFlash = async (query, chatHistory, userNumber) => {
 			console.log("Chat History:", JSON.stringify(history, null, 2));
 		}
 
-		// console.log(`CHAT History String=> ${chatHistoryString}`);
 		const prompt = userPrompt;
 		const result = await model.generateContent(prompt);
 		// if (history.length > 5) {
