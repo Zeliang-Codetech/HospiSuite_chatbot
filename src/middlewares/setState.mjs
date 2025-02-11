@@ -38,7 +38,7 @@ const greetings = [
 
 export const setUserState = (req, res, next) => {
   let userMsg = req.user.msg;
-  console.log(`from checkUserMsg Middleware : ${userMsg}`);
+  console.log(`from setState Middleware : ${userMsg}`);
   console.log("Message type:", req.user.messageType);
   console.log("Interactive type:", req.user.interactiveType);
 

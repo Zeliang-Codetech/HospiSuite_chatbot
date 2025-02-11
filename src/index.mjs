@@ -1,10 +1,11 @@
-import express from "express";
+import express, { response } from "express";
 import dotenv from "dotenv";
 import webhookRouter from './routes/webhook.mjs'
 import  Hospitals_name  from "./utils/hospitalList.mjs";
 //DB
 import mongoose from "./database.mjs";
 import { checkUser } from "./utils/checkUser.mjs";
+import { chatStore, getchatHistory } from "./utils/storeChat.mjs";
 
 // configurations
 dotenv.config();
@@ -36,3 +37,14 @@ catch (error) {
 	process.exit(1);
 }
 
+
+const chat = {
+  query: "",
+  response: "!"
+}
+
+
+// checkUser('react','010101010101');
+// chatStore('010101010101',chat);
+// let history = getchatHistory('1234543321');
+// console.log(history);
