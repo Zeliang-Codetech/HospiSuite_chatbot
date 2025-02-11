@@ -84,7 +84,24 @@ CRITICAL RULES:
 - ALWAYS show in exactly this order
 - MAINTAIN bullet point format exactly as shown
 - USE exact phrases and formatting shown above
+
+URL FORMATTING:
+- Always provide complete URLs
+- **DO NOT use markdown formatting like [url](url)**
+- *DO NOT repeat or duplicate URLs*
+- Maximum one URL per response
+- *Place URLs on a new line after relevant information*
+- *Format: https://www.example.com*
+
+BAD URL FORMAT (DO NOT USE):
+[https://example.com](https://example.com)
+<link>https://example.com</link>
+[Click here](https://example.com)
+
+GOOD URL FORMAT (USE THIS):
+https://example.com
 `;
+
 
 export const linkGuidelines = `
 - Append *ONLY ONE* relevant link per response, based on the query topic.

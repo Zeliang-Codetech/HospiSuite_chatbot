@@ -25,10 +25,11 @@ export const callGeminiFlash = async (query, chatHistory, userNumber) => {
 			userPrompt = linkGuidelines + query;
 			console.log("query matches link keywords");
 		} else {
-			let chatHistoryString = history
+			let chatHistoryString = history == null ? '' : history
 				.map((entry) => `User: ${entry.query}\nAI: ${entry.response}`)
 				.join("\n");
 			userPrompt = `Chat history String:\n${chatHistoryString}\n\n Your role: ${healthQueries}\n\n userQuery: ${query}`;
+			// userPrompt = `Your role: ${healthQueries}\n\n userQuery: ${query}`;
 			console.log("query matches standard chat");
 			console.log("Chat History:", JSON.stringify(history, null, 2));
 		}
