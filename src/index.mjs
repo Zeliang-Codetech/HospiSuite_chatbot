@@ -102,7 +102,8 @@ const bulkChat = [
 // console.log(`History in index file: ${history}`);
 // await cache.lPush(`chatHistory:${918798068129}`, bulkChat.map(chat => JSON.stringify(chat)));
 
-// const history_context = await chatContext(916002293409);
+// const history_context = await chatContext(917005253152);
+// console.log('printing DONKEY',history_context);
 // // let parsed_response = JSON.parse(history_context);
 // // const formatedContext = parseRedisResponse(history_context)
 

@@ -15,6 +15,7 @@ import { feedbackService } from "../services/feedbackService.mjs";
 // utils
 import { callGeminiFlash } from "../utils/ai_Response_flash.mjs";
 import { cacheStoreChat, getChatHistory } from "../model/storeChat.mjs";
+import { chatContext } from "../utils/fetchChat.mjs";
 
 // Service router map with O(1) lookup time
 const serviceRouterforButtons = {
@@ -65,7 +66,10 @@ export const webhookController = async (req, res) => {
         // get the laetst 5  || [] chatHisotry for the user here 
         // get 5 chat history from redis 
         // let recentChats = await recentChat(req.user.sender);         // fetching from redis
-        let userChatHistory = await getChatHistory(req.user.sender);    //fetching AI-chat history  frm DB 
+
+        // let userChatHistory = await getChatHistory(req.user.sender);    //fetching AI-chat history  frm DB 
+
+        let userChatHistory = await chatContext(req.user.sender);
         console.log(`Printing userChatHistory from controler: =>${userChatHistory},${typeof(userChatHistory)}`)
         // // send the query, the chathistory from the db and the user number to the AI service
         result = await callGeminiFlash(req.query, userChatHistory, req.user.sender);    

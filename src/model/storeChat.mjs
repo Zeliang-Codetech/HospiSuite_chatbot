@@ -82,7 +82,7 @@ export const cacheStoreChat = async (number, newChat) => {
         // console.log(2)
         // console.log(`Fetched from redis:- ${recentChat}`);      //gives the latest length
         // console.log(3)
-        if (recentChat >= 1000) {         //storing redis chats mongoDB, if chat length is 10 per user 
+        if (recentChat >= 5) {         //storing redis chats mongoDB, if chat length is 10 per user 
             const allChats = await cache.lRange(`chatHistory:${number}`, 0, -1);
             console.log(`allChats from redis=> \n${allChats}\ntype of All chats from redis`)
             console.log(typeof (allChats));
@@ -122,21 +122,34 @@ export const fetchChatFromRedis = async (number) => {
         }
 
         // Parse each chat message back to object if they were stored as strings
+        
+        // let stringToObj = JSON.parse(chatHistory);
+        // first split the string by },{ 
+        // process each item 
+        // let toBeGivenToGemini = []
+        // let redisString = JSON.stringify(chatHistory);
+        // // console.log(`redis string : ${redisString}`)
+        // // let cleanItems = redisString.split("},{");
+        // const items = redisString.split("},{")
+        // items.forEach((el, index) => {
+        //     // console.log(`This is a clean Item : ${cleanItem}`)
+        //         // format the string here to an array of objects here
+        //         const parsedItem = JSON.parse(el);
+        //         toBeGivenToGemini.push(parsedItem);
+        //         // console.log(`TO BE GIVEN TO GEMINI  : ${toBeGivenToGemini}`);
+        // });
 
+
+        // console.log(`shit here  ${chatHistory}`);
         return chatHistory.map(chat => {
             try {
-                // return JSON.parse(chat);
-                const parsed = JSON.parse(chat);
-                return {
-                    query: parsed.query,
-                    response: parsed.response
-                }
-
+                return JSON.parse(chat);
             } catch {
                 console.log(`chatHistory map error`)
                 return chat; // Return if not JSON string(need to handle error)
             }
         });
+        // return toBeGivenToGemini;
 
     } catch (error) {
         console.error('Error fetching chat history from Redis:', error);

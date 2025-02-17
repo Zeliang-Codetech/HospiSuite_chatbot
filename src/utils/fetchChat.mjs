@@ -1,6 +1,6 @@
 //TO BE TESTED
 
-import { cacheStoreChat, fetchChatFromRedis, getChatHistory, redisToMongo } from "../model/storeChat.mjs";
+import { fetchChatFromRedis, getChatHistory, redisToMongo } from "../model/storeChat.mjs";
 import { cache } from "../redis.mjs";
 
 
@@ -14,33 +14,30 @@ import { cache } from "../redis.mjs";
 export const chatContext = async (userNumber) => {
     //call from redis and return(if chats exist)
     try {
-        console.log('a')
+        // console.log('a')
 
         let chatHistory = await fetchChatFromRedis(userNumber)
 
-        console.log(`b=====${chatHistory}`)
+        // console.log(`b=====${chatHistory}`)
         if (chatHistory && chatHistory.length > 0){
-            console.log('c')
+            // console.log('c')
 
-            console.log(`Redischat function from util function: \n${chatHistory}`);
+            console.log(`****Returned Chat history from Redis:**** \n${chatHistory}`);
             return chatHistory;
         }
-        console.log('d')
+        // console.log('d')
 
         //(if empty)call mongo and  
         let chatData = await getChatHistory(userNumber);
-        console.log('e')
+        // console.log('e')
 
         chatHistory = chatData.chatHistory;    // destructuring the array from the DB response
         if (chatHistory && chatHistory.length > 0){
-            console.log('f')
-       //need to change to desired format?
-            // await cacheStoreChat(userNumber, chatHistory);
+            // console.log('f')
         await cache.lPush(`chatHistory:${userNumber}`, chatHistory.map(chat => JSON.stringify(chat)));
         }
-        console.log(`DBchat function from util function: \n${chatHistory}`);
-        console.log('g')
-
+        console.log(`****Returned Chat history from DB:****: \n${chatHistory}`);
+        // console.log('g')
         return chatHistory
     } catch (error) {
         console.log(`Error from fetchHistory util function: \n${error}`);
