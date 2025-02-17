@@ -14,7 +14,7 @@ import { listOfDistrictHospitals } from "../services/listOfDistrictHospitalsServ
 import { feedbackService } from "../services/feedbackService.mjs";
 // utils
 import { callGeminiFlash } from "../utils/ai_Response_flash.mjs";
-import { getchatHistory } from "../utils/storeChat.mjs";
+import { cacheStoreChat, getChatHistory } from "../model/storeChat.mjs";
 
 // Service router map with O(1) lookup time
 const serviceRouterforButtons = {
@@ -63,7 +63,10 @@ export const webhookController = async (req, res) => {
     if (req.query != "") {
       try { 
         // get the laetst 5  || [] chatHisotry for the user here 
-        let userChatHistory = await getchatHistory(req.user.sender);    //fetching AI-chat history 
+        // get 5 chat history from redis 
+        // let recentChats = await recentChat(req.user.sender);         // fetching from redis
+        let userChatHistory = await getChatHistory(req.user.sender);    //fetching AI-chat history  frm DB 
+        console.log(`Printing userChatHistory from controler: =>${userChatHistory},${typeof(userChatHistory)}`)
         // // send the query, the chathistory from the db and the user number to the AI service
         result = await callGeminiFlash(req.query, userChatHistory, req.user.sender);    
         // result = await callGeminiFlash(req.query);   

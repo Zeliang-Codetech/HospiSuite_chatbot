@@ -1,4 +1,4 @@
-import { userInfoDB } from "../model/userInfo.mjs";
+import { userInfoDB } from "./userInfo.mjs";
 
 export const checkUser = async (name, number) => {
 

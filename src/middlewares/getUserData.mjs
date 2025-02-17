@@ -1,5 +1,5 @@
 import { multimediaError } from "../services/MultimediaErrorService.mjs";
-import { checkUser } from "../utils/checkUser.mjs";
+import { checkUser } from "../model/checkUser.mjs";
 import { isOnlyEmoji } from "../utils/detectUserName.mjs";
 export const getUserData = async (req, res, next) => {
   try {

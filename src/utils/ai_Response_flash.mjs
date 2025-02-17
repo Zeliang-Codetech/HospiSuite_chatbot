@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import { healthQueries, linkGuidelines } from "./ai_prompt_roles.mjs";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { chatStore } from "./storeChat.mjs";
+import { cacheStoreChat, chatStore } from "../model/storeChat.mjs";
 dotenv.config();
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
@@ -50,7 +50,10 @@ export const callGeminiFlash = async (query, chatHistory, userNumber) => {
 			response: result.response.text()
 		}
 		console.log('Chat=>\n', chat);
+		//instead of call mongoDB calling redis here to store the chats
+		// await cacheStoreChat(number,chat)
 		await chatStore(userNumber, chat);		//calling db to store latest chat & query.
+		await cacheStoreChat(userNumber,chat)
 		return {
 			success: true,
 			message: result.response.text(),

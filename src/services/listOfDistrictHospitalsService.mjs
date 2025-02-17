@@ -1,7 +1,7 @@
 import axios from "axios";
 import dotenv from "dotenv";
 dotenv.config();
-import Hospitals_name from "../utils/hospitalList.mjs";
+import Hospitals_name from "../model/hospitalList.mjs";
 
 export const listOfDistrictHospitals = async (userNumber, district) => {
   try {
