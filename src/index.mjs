@@ -3,9 +3,11 @@ import dotenv from "dotenv";
 import webhookRouter from './routes/webhook.mjs'
 //DB
 import mongoose from "./database.mjs";
-import {  cacheStoreChat, fetchChatFromRedis, getChatHistory, redisToMongo } from "./model/storeChat.mjs";
 import { chatContext } from "./utils/fetchChat.mjs";
-import { cache } from "./redis.mjs";
+import { cacheStoreChat } from "./model/storeChat.mjs";
+// import {  cacheStoreChat, fetchChatFromRedis, getChatHistory, redisToMongo } from "./model/storeChat.mjs";
+// import { chatContext } from "./utils/fetchChat.mjs";
+// import { cache } from "./redis.mjs";
 
 // configurations
 dotenv.config();
@@ -26,14 +28,14 @@ app.get("/", (req, res) => {
 
 try {
   if (mongoose.connection.readyState) {
-    console.log(`connection state: ${mongoose.connection.readyState}`);
+    console.log(`________connection state: ${mongoose.connection.readyState}`);
     app.listen(port, () => {
       console.log(`App listening on port ${port}`);
     });
   }
 }
 catch (error) {
-  console.error(error);
+  console.error('Index error',error);
   process.exit(1);
 }
 
@@ -117,51 +119,23 @@ const bulkChat = [
 // console.log(`\n\nformatedContext_ ${formatedContext}`);
 // console.log(typeof(formatedContext));
 
-// function parseRedisResponse(redisResponse) {
 
 
+/*
+const fetchingIndex = await chatContext(919862694100);
+console.log(`\n\nIndex print: ${fetchingIndex}`);
+fetchingIndex.forEach(el=>{
+  console.log(el);
+})
 
-  // try {
-  //     // If the input is already an object, return it as an array
-  //     if (typeof redisResponse === 'object' && !Array.isArray(redisResponse)) {
-  //         return Object.values(redisResponse);
-  //     }
+let i = Math.floor(Math.random()*100)
 
-  //     // If the input is a string, try to parse it
-  //     if (typeof redisResponse === 'string') {
-  //         // Remove any leading/trailing whitespace
-  //         const cleanedResponse = redisResponse.trim();
-          
-  //         // Try parsing as JSON first
-  //         try {
-  //             const parsedJSON = JSON.parse(cleanedResponse);
-  //             if (typeof parsedJSON === 'object' && !Array.isArray(parsedJSON)) {
-  //                 return Object.values(parsedJSON);
-  //             }
-  //             return parsedJSON;
-  //         } catch (e) {
-  //             // If JSON parsing fails, try parsing the custom format
-  //             const objects = cleanedResponse.match(/\{[^{}]*\}/g);
-  //             if (!objects) {
-  //                 throw new Error('Invalid format: No objects found');
-  //             }
+let chat = {
+  query: i++,
+  response: "result.response.text()"
+}
 
-  //             return objects.map(obj => {
-  //                 // Replace single quotes with double quotes for valid JSON
-  //                 const jsonStr = obj.replace(/'/g, '"');
-  //                 try {
-  //                     return JSON.parse(jsonStr);
-  //                 } catch (parseError) {
-  //                     console.error(`Error parsing object: ${jsonStr}`);
-  //                     throw parseError;
-  //                 }
-  //             });
-  //         }
-  //     }
-
-  //     throw new Error('Invalid input type');
-  // } catch (error) {
-  //     console.error('Error parsing Redis response:', error);
-  //     throw error;
-  // }
-// }
+let storingIndex = await cacheStoreChat(919862694100,chat);
+console.log(`\n\n1234_storingIndex: ${chat.query}`)
+*/
+                  

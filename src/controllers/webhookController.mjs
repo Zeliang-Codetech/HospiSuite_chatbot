@@ -69,12 +69,13 @@ export const webhookController = async (req, res) => {
 
         // let userChatHistory = await getChatHistory(req.user.sender);    //fetching AI-chat history  frm DB 
 
-        let userChatHistory = await chatContext(req.user.sender);
-        console.log(`Printing userChatHistory from controler: =>${userChatHistory},${typeof(userChatHistory)}`)
+        let userChatHistory = await chatContext(req.user.sender);         //fetching AI-chat history  frm redis & DB_____
+        if(userChatHistory)
+            console.log(`\n\nchat history fetched in controller of type: ${typeof(userChatHistory)}`)
         // // send the query, the chathistory from the db and the user number to the AI service
         result = await callGeminiFlash(req.query, userChatHistory, req.user.sender);    
         // result = await callGeminiFlash(req.query);   
-        console.log("Gemini Flash Response:", result);
+        console.log("\n\nGemini Flash Response:", result);
       } catch (error) {
         console.error("Gemini-flash failed:", error);
         result = {

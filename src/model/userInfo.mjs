@@ -3,10 +3,15 @@ import mongoose from "mongoose";
 
 const userInfoSchema = {
   userNumber: {
-    type: Number
+    type: Number,
+    required: true,
   },
   userName: {
     type: String
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
   },
   chatHistory: [{
     query: {
@@ -17,14 +22,10 @@ const userInfoSchema = {
       type: String,
       trim: true,
     },
-    // timestamp:{
-    //   type: Date,
-    //   default: new Intl.DateTimeFormat('en-IN', {
-    //     timeZone: 'Asia/Kolkata',
-    //     dateStyle: 'full',
-    //     timeStyle: 'medium'
-    // }).format(new Date())
-    // }
+    timestamp: {
+      type: Date,
+      default: Date.now
+    }
   }]
 }
 

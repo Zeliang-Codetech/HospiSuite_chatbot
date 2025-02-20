@@ -17,7 +17,9 @@ let linkKeywords = /insurance|registration|health schemes|pmjay|hwcs|register/i;
 let userPrompt;
 
 export const callGeminiFlash = async (query, chatHistory, userNumber) => {
-	let history = chatHistory.chatHistory;
+	// console.log('\n\nTesting incoming chat histroy in gemini:\n',chatHistory)
+	// let history = chatHistory.chatHistory;
+	let history = chatHistory;
 	// let chatHistory = chatHistory;
 	try {
 		// detect what type of query it is (either health querries , ....)
@@ -25,23 +27,21 @@ export const callGeminiFlash = async (query, chatHistory, userNumber) => {
 			userPrompt = linkGuidelines + query;
 			console.log("query matches link keywords");
 		} else {
+			// console.log('\n\nChecking chatHistoryString before join operation:\n',history);	
+
 			let chatHistoryString = history == null ? '' : history
 				.map((entry) => `User: ${entry.query}\nAI: ${entry.response}`)
 				.join("\n");
-			userPrompt = `Chat history String:\n${chatHistoryString}\n\n Your role: ${healthQueries}\n\n userQuery: ${query}`;
+			// console.log('\n\nChecking chatHistoryString after join operation:\n',chatHistoryString);	
+			userPrompt = `\n\nChat history String:\n${chatHistoryString}\n\n Your role: ${healthQueries}\n\n userQuery: ${query}`;
 			// userPrompt = `Your role: ${healthQueries}\n\n userQuery: ${query}`;
 			console.log("query matches standard chat");
-			console.log("Chat History:", JSON.stringify(history, null, 2));
+			console.log("\n\nChat History in gemini:", JSON.stringify(history, null, 2));
 		}
 
 		const prompt = userPrompt;
 		const result = await model.generateContent(prompt);
-		// if (history.length > 5) {
-		// 	history.shift();
-		// }
 
-		// udpating the chathistory array 
-		// history.push({ query: query, response: result.response.text() });
 		// update the laest query to the database
 		//-- find sender number in DB 
 		// -- set the latest query which is "query and result.response.text();"
@@ -51,9 +51,8 @@ export const callGeminiFlash = async (query, chatHistory, userNumber) => {
 		}
 		console.log('Chat=>\n', chat);
 		//instead of call mongoDB calling redis here to store the chats
-		// await cacheStoreChat(number,chat)
-		await chatStore(userNumber, chat);		//calling db to store latest chat & query.
-		await cacheStoreChat(userNumber,chat)
+		// await chatStore(userNumber, chat);		//calling db to store latest chat & query.
+		cacheStoreChat(userNumber,chat)
 		return {
 			success: true,
 			message: result.response.text(),
