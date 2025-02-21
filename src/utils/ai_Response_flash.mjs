@@ -51,7 +51,6 @@ export const callGeminiFlash = async (query, chatHistory, userNumber) => {
 		}
 		console.log('Chat=>\n', chat);
 		//instead of call mongoDB calling redis here to store the chats
-		// await chatStore(userNumber, chat);		//calling db to store latest chat & query.
 		cacheStoreChat(userNumber,chat)
 		return {
 			success: true,
