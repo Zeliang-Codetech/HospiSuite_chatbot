@@ -41,7 +41,8 @@ export const callGeminiFlash = async (query, chatHistory, userNumber) => {
 
 		const prompt = userPrompt;
 		const result = await model.generateContent(prompt);
-
+		// first get the title from the string 
+		// 
 		// update the laest query to the database
 		//-- find sender number in DB 
 		// -- set the latest query which is "query and result.response.text();"
@@ -49,12 +50,23 @@ export const callGeminiFlash = async (query, chatHistory, userNumber) => {
 			query: query,
 			response: result.response.text()
 		}
+
+		let title , message, aiResponse; 
+		aiResponse = result.response.text();
+		// use reqex here to extract the title 
+		const titleMatch = aiResponse.match(/__([^_]+)__/);
+		title = titleMatch ? titleMatch[1] : '';
+		console.log(`The title : ${title}`)
+		// remove the title from the message body 
+		message = aiResponse.replace(/__[^_]+__\n?/, '');
+		console.log(`The response ${message}`)
 		console.log('Chat=>\n', chat);
 		//instead of call mongoDB calling redis here to store the chats
 		cacheStoreChat(userNumber,chat)
 		return {
 			success: true,
-			message: result.response.text(),
+			title: title,
+			message: message,
 		};
 	} catch (error) {
 		console.error("Error in promptAi:\n", error);

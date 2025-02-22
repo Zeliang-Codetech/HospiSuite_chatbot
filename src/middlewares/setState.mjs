@@ -67,6 +67,8 @@ export const setUserState = (req, res, next) => {
       }
     }
   } else {
+    req.location = "";
+    req.locationType = "";
     // Handle text messages
     let isGreeting = greetings.some(
       (greet) => formattedMsg.trim() === greet.toLowerCase()

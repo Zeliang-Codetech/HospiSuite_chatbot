@@ -19,7 +19,7 @@ export const sendAiResponseService = async (userNumber, userQuery) => {
         type: "button",
         header: {
           type: "text",
-          text: "",
+          text: userQuery.title,
         },
         body: {
           text: userQuery.message,

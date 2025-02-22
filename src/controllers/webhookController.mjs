@@ -19,7 +19,7 @@ import { chatContext } from "../utils/fetchChat.mjs";
 
 // Service router map with O(1) lookup time
 const serviceRouterforButtons = {
-  greeting: greetingService,
+ "greeting": greetingService,
   "health schemes": healthSchemeService,
   "more about pm-jay": pmJayInfoService,
   "more on hwcs": hwcService,
@@ -42,26 +42,29 @@ export const webhookController = async (req, res) => {
   let userMessage = req.userMsg;
   let locationType = req?.locationType;
   let location = req?.location;
-  let result = null;
+  let button_result = null, ai_result = null;
+  
   try {
+
     const buttonBasedService = serviceRouterforButtons[userMessage];
     const listBasedServiceforState = serviceRouterforStateLists[location];
     // const listBasedServiceforDistrict = serviceRouterforDistrictLists[location];
 
     // specific commands button based
     if (buttonBasedService) {
-      result = await buttonBasedService(senderNumber, senderName ?? undefined);
       console.log("Button based command processed successfully!");
+      button_result = await buttonBasedService(senderNumber, senderName ?? undefined);
     } else if (listBasedServiceforState && locationType === "state") {
-      result = await listBasedServiceforState(senderNumber);
       console.log("state selection processed successfully!");
-    } else if (locationType == "district") {
-      result = await listOfDistrictHospitals(senderNumber, location);
+
+      button_result = await listBasedServiceforState(senderNumber);
+    } else if (locationType == "district" && req.query === '') {
       console.log("district selection processed successfully!");
+      button_result = await listOfDistrictHospitals(senderNumber, location);
     }
 
     // Prompting the AI
-    if (req.query != "") {
+    if (req.query != "" && location == '' && locationType == '') {
       try { 
         // get the laetst 5  || [] chatHisotry for the user here 
         // get 5 chat history from redis 
@@ -73,25 +76,25 @@ export const webhookController = async (req, res) => {
         if(userChatHistory)
             console.log(`\n\nchat history fetched in controller of type: ${typeof(userChatHistory)}`)
         // // send the query, the chathistory from the db and the user number to the AI service
-        result = await callGeminiFlash(req.query, userChatHistory, req.user.sender);    
+        ai_result = await callGeminiFlash(req.query, userChatHistory, req.user.sender);  
+        sendAiResponseService(senderNumber,  ai_result);
         // result = await callGeminiFlash(req.query);   
-        console.log("\n\nGemini Flash Response:", result);
+        // console.log("\n\nGemini Flash Response:",  ai_result);
       } catch (error) {
         console.error("Gemini-flash failed:", error);
-        result = {
+        ai_result = {
           success: false,
           message: "AI response failed. Please try again later.",
         };
       }
-      sendAiResponseService(senderNumber, result);
     }
     // Check result status
-    if (result?.success !== undefined) {
+    if ( ai_result?.success !== undefined) {
       console.log({
-        message: result.success
+        message:  ai_result.success
           ? "response successful"
           : "response unsuccessful",
-        details: result,
+        details:  ai_result,
       });
     } else {
       console.log("No handler found for this message");
