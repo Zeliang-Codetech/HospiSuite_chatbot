@@ -25,7 +25,7 @@ const greetings = [
   "Heylo",
   "Hai",
   "Helloji",
-  "Hi Hospisuite",
+  "Hi, Hospisuite",
   "Good afternoon",
   "good morning",
   "good evening",
