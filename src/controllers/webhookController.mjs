@@ -1,25 +1,27 @@
 // services
 import { greetingService } from "../services/greetingService.mjs";
-import { healthSchemeService } from "../services/healthSchemesService.mjs";
-import { abhaRegistrationService } from "../services/abhaRegistrationService.mjs";
-import { pmJayInfoService } from "../services/pmjayInformationService.mjs";
+import { healthSchemeService } from "../services/ABHA/healthSchemesService.mjs";
+import { abhaRegistrationService } from "../services/ABHA/abhaRegistrationService.mjs";
+import { pmJayInfoService } from "../services/ABHA/pmjayInformationService.mjs";
 import { resendOptionsService } from "../services/resendOptionsService.mjs";
-import { hwcService } from "../services/hwcService.mjs";
-import { insuranceSchemes } from "../services/insuranceSchemesService.mjs";
+import { hwcService } from "../services/ABHA/hwcService.mjs";
+import { insuranceSchemes } from "../services/ABHA/insuranceSchemesService.mjs";
 import { sendAiResponseService } from "../services/sendAIresponse.mjs";
-import { HealthAndInsuranceService } from "../services/healthAndInsuranceService.mjs";
+import { HealthAndInsuranceService } from "../services/ABHA/healthAndInsuranceService.mjs";
 import { stateSelectionService } from "../services/stateSelectionService.mjs";
 import { districtSelectionService } from "../services/districtSelectionService.mjs";
 import { listOfDistrictHospitals } from "../services/listOfDistrictHospitalsService.mjs";
 import { feedbackService } from "../services/feedbackService.mjs";
+
 // utils
-import { callGeminiFlash } from "../utils/ai_Response_flash.mjs";
+import { callGeminiFlash } from "../utils/ai_utility/ai_Response_flash.mjs";
 import { cacheStoreChat, getChatHistory } from "../model/storeChat.mjs";
-import { chatContext } from "../utils/fetchChat.mjs";
+import { chatContext } from "../utils/db_utility/fetchChat.mjs";
+
 
 // Service router map with O(1) lookup time
 const serviceRouterforButtons = {
- "greeting": greetingService,
+  greeting: greetingService,
   "health schemes": healthSchemeService,
   "more about pm-jay": pmJayInfoService,
   "more on hwcs": hwcService,
@@ -42,10 +44,10 @@ export const webhookController = async (req, res) => {
   let userMessage = req.userMsg;
   let locationType = req?.locationType;
   let location = req?.location;
-  let button_result = null, ai_result = null;
-  
-  try {
+  let button_result = null,
+    ai_result = null;
 
+  try {
     const buttonBasedService = serviceRouterforButtons[userMessage];
     const listBasedServiceforState = serviceRouterforStateLists[location];
     // const listBasedServiceforDistrict = serviceRouterforDistrictLists[location];
@@ -53,33 +55,32 @@ export const webhookController = async (req, res) => {
     // specific commands button based
     if (buttonBasedService) {
       console.log("Button based command processed successfully!");
-      button_result = await buttonBasedService(senderNumber, senderName ?? undefined);
+      button_result = await buttonBasedService(
+        senderNumber,
+        senderName ?? undefined
+      );
     } else if (listBasedServiceforState && locationType === "state") {
       console.log("state selection processed successfully!");
 
       button_result = await listBasedServiceforState(senderNumber);
-    } else if (locationType == "district" && req.query === '') {
+    } else if (locationType == "district" && req.query === "") {
       console.log("district selection processed successfully!");
       button_result = await listOfDistrictHospitals(senderNumber, location);
     }
-
-    // Prompting the AI
-    if (req.query != "" && location == '' && locationType == '') {
-      try { 
-        // get the laetst 5  || [] chatHisotry for the user here 
-        // get 5 chat history from redis 
-        // let recentChats = await recentChat(req.user.sender);         // fetching from redis
-
-        // let userChatHistory = await getChatHistory(req.user.sender);    //fetching AI-chat history  frm DB 
-
-        let userChatHistory = await chatContext(req.user.sender);         //fetching AI-chat history  frm redis & DB_____
-        if(userChatHistory)
-            console.log(`\n\nchat history fetched in controller of type: ${typeof(userChatHistory)}`)
+    if (req.query != "" && location == "" && locationType == "") {
+      try {
+        let userChatHistory = await chatContext(req.user.sender); //fetching AI-chat history  form redis & DB_____
+        if (userChatHistory)
+          console.log(
+            `\n\nchat history fetched in controller of type: ${typeof userChatHistory}`
+          );
         // // send the query, the chathistory from the db and the user number to the AI service
-        ai_result = await callGeminiFlash(req.query, userChatHistory, req.user.sender);  
-        sendAiResponseService(senderNumber,  ai_result);
-        // result = await callGeminiFlash(req.query);   
-        // console.log("\n\nGemini Flash Response:",  ai_result);
+        ai_result = await callGeminiFlash(
+          req.query,
+          userChatHistory,
+          req.user.sender
+        );
+        sendAiResponseService(senderNumber, ai_result);
       } catch (error) {
         console.error("Gemini-flash failed:", error);
         ai_result = {
@@ -89,12 +90,12 @@ export const webhookController = async (req, res) => {
       }
     }
     // Check result status
-    if ( ai_result?.success !== undefined) {
+    if (ai_result?.success !== undefined) {
       console.log({
-        message:  ai_result.success
+        message: ai_result.success
           ? "response successful"
           : "response unsuccessful",
-        details:  ai_result,
+        details: ai_result,
       });
     } else {
       console.log("No handler found for this message");

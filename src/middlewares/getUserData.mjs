@@ -1,6 +1,6 @@
 import { multimediaError } from "../services/MultimediaErrorService.mjs";
 import { checkUser } from "../model/checkUser.mjs";
-import { isOnlyEmoji } from "../utils/detectUserName.mjs";
+import { isOnlyEmoji } from "../utils/filter_utility/filterUserName.mjs";
 export const getUserData = async (req, res, next) => {
   try {
     console.log("Incoming webhook payload:", JSON.stringify(req.body, null, 2));

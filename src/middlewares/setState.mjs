@@ -1,8 +1,8 @@
 import {
   indianStates,
   nagalandDistricts,
-} from "../utils/statesAndDistricts.mjs";
- import check_number from "../utils/userNumber.mjs"
+} from "../utils/constants/statesAndDistricts.mjs";
+
 const greetings = [
   "Hi",
   "Hello",

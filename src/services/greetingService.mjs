@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 // util
-import { isOnlyEmoji, isOnlySpecialChars } from "../utils/detectUserName.mjs";
+import { isOnlyEmoji, isOnlySpecialChars } from "../utils/filter_utility/filterUserName.mjs";
 
 export const greetingService = async (userNumber, userName, req, res) => {
   let isNameOnlyEmoji = isOnlyEmoji(userName);

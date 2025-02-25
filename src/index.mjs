@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import webhookRouter from './routes/webhook.mjs'
 //DB
 import mongoose from "./database.mjs";
-import { chatContext } from "./utils/fetchChat.mjs";
+import { chatContext } from "./utils/db_utility/fetchChat.mjs";
 import { cacheStoreChat } from "./model/storeChat.mjs";
 import connectDB from "./database.mjs";
 

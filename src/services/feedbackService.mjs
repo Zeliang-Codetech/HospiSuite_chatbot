@@ -2,8 +2,7 @@ import axios from "axios";
 import dotenv from "dotenv";
 dotenv.config();
 const body =
-  "Your feedback helps us improve! ✨\n\nTake a moment to share your thoughts:\n👉(https://forms.gle/GUdjUkz8LdRrS1rA6)";
-
+  "Your feedback helps us improve! ✨\n\nTake a moment to share your thoughts:\n👉(https://forms.office.com/r/TVA21DMHbB)";
 
 export const feedbackService = async (userNumber) => {
   const options = {
