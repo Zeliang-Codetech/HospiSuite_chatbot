@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/Zeliang-Codetech/HospiSuite_chatbot/compare/v1.2.0...v1.2.1) (2025-02-26)
+
+
+### Bug Fixes
+
+* updated readme file that includes redis setup ([ffc9313](https://github.com/Zeliang-Codetech/HospiSuite_chatbot/commit/ffc9313e2436e0be30aa1e566f34c1216b7293aa))
+
 # [1.2.0](https://github.com/Zeliang-Codetech/HospiSuite_chatbot/compare/v1.1.0...v1.2.0) (2025-02-26)
 
 
