@@ -1,4 +1,4 @@
-# 🤖HospiSuite: AI-Powered Healthcare Assistant
+**# 🤖HospiSuite: AI-Powered Healthcare Assistant
 
 ## 🏥 Overview
 
@@ -188,7 +188,7 @@ npm start
 PORT: Express port
 
 AUTH_KEY: msg91 Api key
-
+****
 MONGO_URI: Your mongodb atlas uri
 
 GEMINI_API_KEY: Google Generative AI API Key
@@ -206,8 +206,8 @@ REDIS_PORT = 'Your redis port'
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
-
+**This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+**
 ## 👥 Developed By
 
 [Zeliang CodeTech](https://zeliangcodetech.com) - Dream | Devise | Develop
@@ -217,3 +217,4 @@ Disclaimer: HospiSuite is an independent project and is not officially affiliate
 ## 🌐 Contact & Support
 
 * **Emai**l: hospisuitehealthassistant@gmail.com
+**
