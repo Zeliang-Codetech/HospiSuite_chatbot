@@ -21,7 +21,7 @@ import { chatContext } from "../utils/db_utility/fetchChat.mjs";
 
 // Service router map with O(1) lookup time
 const serviceRouterforButtons = {
-  greeting: greetingService,
+  "greeting": greetingService,
   "health schemes": healthSchemeService,
   "more about pm-jay": pmJayInfoService,
   "more on hwcs": hwcService,
