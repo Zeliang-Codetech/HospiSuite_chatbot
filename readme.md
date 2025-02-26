@@ -10,6 +10,7 @@ HospiSuite is an innovative WhatsApp-based chatbot designed to revolutionize hea
 
 * Node.js (v16 or higher)
 * MongoDB (v4.4 or higher)
+* Redis (v4.0 or higher)
 * MSG91 Account
 * Google AI Studio Account
 * ngrok for local development
@@ -18,33 +19,31 @@ HospiSuite is an innovative WhatsApp-based chatbot designed to revolutionize hea
 
 ### 1. MSG91 Setup
 
-
 1. Account Creation
    - [ ] Visit [MSG91 Website](https://msg91.com)
    - [ ] Click "Sign Up"
    - [ ] Complete registration with business details
    - [ ] Verify email
 
-   \
 2. WhatsApp Integration
    - [ ]  Navigate to API section
    - [ ] Generate WhatsApp API key
    - [ ] Set up a new phone number
 
-### 2. Google AI Studio (Gemini API) Signup
 
+### 2. Google AI Studio (Gemini API) Signup
 
 1. Initial Setup
    - [ ] Visit Google AI Studio
    - [ ] Sign in with Google Account
 
-   \
+
 2. Project Configuration
    - [ ] Create new Cloud Project
    - [ ] Enable billing (optional)
    - [ ] Generate API key
 
-   \
+
 3. API Key Setup
    - [ ] Copy API key
    - [ ] Configure permissions
@@ -59,7 +58,6 @@ HospiSuite is an innovative WhatsApp-based chatbot designed to revolutionize hea
 Before starting local development, you'll need to set up ngrok for local webhook testing:
 
 ### `Ngrok setup`
-
 
 1. Account Creation
    - [ ] Visit [ngrok website](https://ngrok.com)
@@ -139,9 +137,35 @@ Update this URL whenever you restart ngrok (free tier limitation)
 You can verify successful setup by checking the ngrok dashboard at http://localhost:4040
 ```
 
-## 🚀 Installation
+### `Setting Up Redis Cloud`
 
-```
+1. Redis Cloud Signup
+   - [ ] Visit [Redis Cloud](https://redis.com/redis-enterprise-cloud/overview/)
+   - [ ] Click "Get Started Free"
+   - [ ] Create an account using:
+     - Email address
+     - Google/GitHub login
+     - Enterprise credentials
+
+2. Create Redis Cloud Database
+   - [ ] Log into Redis Cloud Console
+   - [ ] Click "Create Database"
+   - [ ] Select subscription:
+     - Free Tier or
+     - Paid Subscription
+   - [ ] Choose database configuration:
+     - Deployment type (Single/Multi-region)
+
+3. Obtain Connection Details
+   - [ ] Navigate to database overview
+   - [ ] Locate connection information:
+     - Username
+     - password
+     - host URL
+     - Port number
+     - Authentication credentials
+
+## 🚀 Installation
 # Clone the repository
 git clone https://github.com/your-username/your-repo.git
 
@@ -170,6 +194,14 @@ MONGO_URI: Your mongodb atlas uri
 GEMINI_API_KEY: Google Generative AI API Key
 
 INTEGRATED_NUMBER: Your integrated number from msg91
+
+REDIS_USERNAME = 'redis username (default)'
+
+REDIS_PASSWORD = 'redis password'
+
+REDIS_HOST = 'redis host url'
+
+REDIS_PORT = 'Your redis port'
 ```
 
 ## 📄 License
@@ -185,5 +217,3 @@ Disclaimer: HospiSuite is an independent project and is not officially affiliate
 ## 🌐 Contact & Support
 
 * **Emai**l: hospisuitehealthassistant@gmail.com
-
-
