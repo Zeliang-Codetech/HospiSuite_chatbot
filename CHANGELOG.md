@@ -1,5 +1,5 @@
-# [1.1.0](https://github.com/Zeliang-Codetech/HospiSuite_chatbot/compare/v1.0.0...v1.1.0) (2025-02-26)
 
+# [1.1.0](https://github.com/Zeliang-Codetech/HospiSuite_chatbot/compare/v1.0.0...v1.1.0) (2025-02-26)
 
 ### Features
 
@@ -7,4 +7,6 @@
 
 This is the chagelogs md file where we add things here
 
-lkasf;lkjdslfkj;ldskhfj;lkdnsa;l fkdsfjldsa;kflkdsafn;kdjshfaidhsfdsafdlkl
+> > > > > > > changelogs_moa
+
+
