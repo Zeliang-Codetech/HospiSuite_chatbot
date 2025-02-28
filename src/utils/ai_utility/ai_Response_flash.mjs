@@ -11,24 +11,20 @@ const model = genAI.getGenerativeModel({
 		maxOutputTokens: 180, // Ensures response stays within 1024 characters
 	},
 });
-// let chatHistory = [];
+
 // keywords regex i makes the words case-agnostic : white spaces can cause issues
 let linkKeywords = /insurance|registration|health schemes|pmjay|hwcs|register/i;
 let userPrompt;
 
 export const callGeminiFlash = async (query, chatHistory, userNumber) => {
-	// console.log('\n\nTesting incoming chat histroy in gemini:\n',chatHistory)
-	// let history = chatHistory.chatHistory;
+	console.log(`user chat History : ${chatHistory}`);
 	let history = chatHistory;
-	// let chatHistory = chatHistory;
 	try {
 		// detect what type of query it is (either health querries , ....)
 		if (linkKeywords.test(query)) {
 			userPrompt = linkGuidelines + query;
 			console.log("query matches link keywords");
 		} else {
-			// console.log('\n\nChecking chatHistoryString before join operation:\n',history);	
-
 			let chatHistoryString = history == null ? '' : history
 				.map((entry) => `User: ${entry.query}\nAI: ${entry.response}`)
 				.join("\n");

@@ -1,12 +1,12 @@
 import { greetingService } from "../../services/greetingService.mjs";
-import { healthSchemeService } from "../../services/ABHA/healthSchemesService.mjs";
+import { healthSchemeService } from "../../services/ABHA/abhaHealthSchemesService.mjs";
 import { abhaRegistrationService } from "../../services/ABHA/abhaRegistrationService.mjs";
-import { pmJayInfoService } from "../../services/ABHA/pmjayInformationService.mjs";
+import { pmJayInfoService } from "../../services/ABHA/abhaPmjayInformationService.mjs";
 import { resendOptionsService } from "../../services/resendOptionsService.mjs";
-import { hwcService } from "../../services/ABHA/hwcService.mjs";
-import { insuranceSchemes } from "../../services/ABHA/insuranceSchemesService.mjs";
+import { hwcService } from "../../services/ABHA/abhaHwcService.mjs";
+import { insuranceSchemes } from "../../services/ABHA/abhaInsuranceSchemesService.mjs";
 import { sendAiResponseService } from "../../services/sendAIresponse.mjs";
-import { HealthAndInsuranceService } from "../../services/ABHA/healthAndInsuranceService.mjs";
+import { HealthAndInsuranceService } from "../../services/ABHA/abhaHealthAndInsuranceService.mjs";
 import { stateSelectionService } from "../../services/stateSelectionService.mjs";
 import { districtSelectionService } from "../../services/districtSelectionService.mjs";
 import { listOfDistrictHospitals } from "../../services/listOfDistrictHospitalsService.mjs";
@@ -50,8 +50,7 @@ export async function handleUserInteraction (options = {}){
           let ai_result = null;
           const buttonBasedService = serviceRouterforButtons[userMessage];
           const listBasedServiceforState = serviceRouterforStateLists[location];
-          // const listBasedServiceforDistrict = serviceRouterforDistrictLists[location];
-      
+
           // specific commands button based
           if (buttonBasedService) {
             console.log("Button based command processed successfully!");

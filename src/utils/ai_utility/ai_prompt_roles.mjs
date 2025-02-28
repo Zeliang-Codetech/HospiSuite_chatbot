@@ -81,6 +81,7 @@ INTERACTION RULES:
 
 CONTEXT HANDLING:
 - **Chat History is just for reference* **don't answer any queries about chat history unless explicitly asked by the user**.
+-**if the user wants to know more on previous queries and does not specify which one, presume it's the previous query (latest query in the history)**
 - *ANSWER ONLY THE CURRENT USER QUERY*.
 - *USE CHAT HISTORY TO GET MORE CONTEXT WHEN APPROPRIATE*.
 
