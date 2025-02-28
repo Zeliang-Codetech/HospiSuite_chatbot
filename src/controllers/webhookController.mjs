@@ -1,4 +1,5 @@
 import { handleUserInteraction  } from "../utils/webhookUtility/webhookUtil.mjs";
+import {responseHandler} from "../services/commonResponseHandler.mjs";
 
 export const webhookController = async (req, res) => {
   let senderNumber = req.user.sender;
@@ -10,16 +11,18 @@ export const webhookController = async (req, res) => {
   let ai_result = null;
   let query = req?.query;
 
-// handle user interaction
-handleUserInteraction ({
-  senderNumber, 
-  senderName, 
-  locationType, 
-  userMessage, 
-  location, 
-  query, 
-  ai_result, 
-  button_result
-});
+// // handle user interaction
+// handleUserInteraction ({
+//   senderNumber, 
+//   senderName, 
+//   locationType, 
+//   userMessage, 
+//   location, 
+//   query, 
+//   ai_result, 
+//   button_result
+// });
+
+responseHandler(senderNumber, userMessage,  req, res);
 
 };

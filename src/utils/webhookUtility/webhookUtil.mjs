@@ -11,7 +11,8 @@ import { stateSelectionService } from "../../services/stateSelectionService.mjs"
 import { districtSelectionService } from "../../services/districtSelectionService.mjs";
 import { listOfDistrictHospitals } from "../../services/listOfDistrictHospitalsService.mjs";
 import { feedbackService } from "../../services/feedbackService.mjs";
-
+import { cmhisServices } from "../../services/CMHIS/cmhisServices.mjs";
+import { abhaServices } from "../../services/ABHA/abhaServices.mjs";
 // utils
 import { callGeminiFlash } from "../ai_utility/ai_Response_flash.mjs";
 import { chatContext } from "../db_utility/fetchChat.mjs";
@@ -19,6 +20,8 @@ import { chatContext } from "../db_utility/fetchChat.mjs";
 // Service router map with O(1) lookup time
 const serviceRouterforButtons = {
   "greeting": greetingService,
+  "cmhis services": cmhisServices,   
+  "abha services": abhaServices,
   "health schemes": healthSchemeService,
   "more about pm-jay": pmJayInfoService,
   "more on hwcs": hwcService,

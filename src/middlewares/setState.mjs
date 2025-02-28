@@ -91,6 +91,9 @@ export const setUserState = (req, res, next) => {
         case "\u2630 menu":
         case "state":
         case "improve hospisuite!":
+        case "abha services":
+        case "cmhis services":
+        case "online consultation":
           req.userMsg = formattedMsg;
           req.query = "";
           break;

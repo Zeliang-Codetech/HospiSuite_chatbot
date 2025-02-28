@@ -2,21 +2,26 @@ import axios from "axios";
 import dotenv from "dotenv";
 dotenv.config();
 
-// util
-import { isOnlyEmoji, isOnlySpecialChars } from "../utils/filter_utility/filterUserName.mjs";
 
-export const greetingService = async (userNumber, userName, req, res) => {
-  let isNameOnlyEmoji = isOnlyEmoji(userName);
-  let isNameOnlySpecialChars = isOnlySpecialChars(userName);
-  let body;
+export const abhaServices = async (userNumber, userName, req, res) => {
+    let body = `Here's what you can explore:\n\n1️⃣ ABHA Registration
+    - Create your digital health ID
+    - Simplify your healthcare journey
+    
+    2️⃣ Health Schemes
+    - Learn about the different health schemes available
+    - Connect with healthcare providers
+    
+    3️⃣ Insurance Information
+    - Learn about health insurance schemes
+    - Understand coverage and benefits
+    
+    4️⃣ Empaneled Hospitals
+    - Find ABHA-approved healthcare facilities
+    - Locate hospitals near you
+    `;
 
-  if (isNameOnlyEmoji == true || isNameOnlySpecialChars == true) {
-    body = `Namaste 🙏, I’m HospiSuite, your Healthcare WhatsApp assistant. What can I help you with today? In case you're interested here's a quick and easy way to know more about our services.`;
-  } else {
-    body = `Namaste  *${userName}* 🙏,  I’m HospiSuite, your Healthcare WhatsApp assistant. What can I help you with today? In case you're interested here's a quick and easy way to know more about our services.`;
-  }
-
-  const options = {
+const options = {
     method: "POST",
     url: "https://control.msg91.com/api/v5/whatsapp/whatsapp-outbound-message/",
     headers: {
@@ -32,7 +37,7 @@ export const greetingService = async (userNumber, userName, req, res) => {
         type: "button",
         header: {
           type: "text",
-          text: "Welcome to HospiSuite 🏥",
+          text: "List of ABHA services",
         },
         body: {
           text: body,
@@ -46,21 +51,21 @@ export const greetingService = async (userNumber, userName, req, res) => {
               type: "reply",
               reply: {
                 id: "id1",
-                title: " ABHA Services",
+                title: " ABHA Registration",
               },
             },
             {
               type: "reply",
               reply: {
                 id: "id2",
-                title: "CMHIS Services",
+                title: "Health & Insurance",
               },
             },
             {
               type: "reply",
               reply: {
                 id: "id3",
-                title: "Online Consultation",
+                title: "Empaneled Hospitals",
               },
             },
           ],
@@ -73,17 +78,17 @@ export const greetingService = async (userNumber, userName, req, res) => {
     const response = await axios.request(options);
     return {
       success: true,
-      message: "Greeting message sent successfully",
+      message: "ABHA service messages sent successfully",
       data: response.data,
     };
   } catch (error) {
     console.error(
-      "Error sending greeting message:",
+      "Error sending ABHA service message:",
       error.response ? error.response.data : error.message
     );
     return {
       success: false,
-      error: "Failed to send greeting message",
+      error: "Failed to send ABHA service message",
       details: error.response ? error.response.data : error.message,
     };
   }
