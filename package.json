@@ -5,8 +5,7 @@
   "scripts": {
     "start": "node src/index.mjs",
     "dev": "nodemon src/index.mjs",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "generate-changelog": "node generateChangelog.mjs"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
@@ -25,8 +24,7 @@
     "redis": "^4.7.0"
   },
   "engines": {
-    "node": ">=20.0.0",
-    "winston": "^3.17.0"
+    "node": ">=20.0.0"
   },
   "devDependencies": {
     "@semantic-release/changelog": "^6.0.3",
