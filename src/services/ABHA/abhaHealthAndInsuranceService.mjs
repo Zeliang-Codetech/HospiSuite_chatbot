@@ -36,16 +36,23 @@ export const HealthAndInsuranceService = async (userNumber) => {
               type: "reply",
               reply: {
                 id: "ID_1",
-                title: "Health schemes",
+                title: "ABHA Health schemes",
               },
             },
             {
               type: "reply",
               reply: {
                 id: "id2",
-                title: "Insurance schemes",
+                title: "ABHA Insurance",
               },
             },
+            // {
+            //   type: "reply",
+            //   reply: {
+            //     id: "id3",
+            //     title: "Online Consultation",
+            //   },
+            // },
           ],
         },
       },

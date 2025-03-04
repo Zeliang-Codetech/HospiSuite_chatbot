@@ -43,6 +43,13 @@ export const sendAiResponseService = async (userNumber, userQuery) => {
                 title: "Improve Hospisuite!",
               },
             },
+            {
+              type: "reply",
+              reply: {
+                id: "ID_3",
+                title: "Online Consultation",
+              },
+            },
           ],
         },
       },

@@ -1,9 +1,10 @@
 import axios from "axios";
 import dotenv from "dotenv";
 dotenv.config();
-export const resendOptionsService = async (userNumber) => {
 
-  const options = {
+
+export const abhaServices = async (userNumber, userName, req, res) => {
+const options = {
     method: "POST",
     url: "https://control.msg91.com/api/v5/whatsapp/whatsapp-outbound-message/",
     headers: {
@@ -19,10 +20,10 @@ export const resendOptionsService = async (userNumber) => {
         type: "button",
         header: {
           type: "text",
-          text: "Your're back on track! ",
+          text: "Welcome to ABHA Services! 🏥",
         },
         body: {
-          text: "Here’s a list of our services. Let me know how I can assist you! 😊",
+          text: `Let's simplify your healthcare journey. Choose from these powerful options:\n\n*1. ABHA Registration*\n_Your digital gateway to seamless healthcare aid and support. Register now!_\n\n*2. ABHA Care (Health & Insurance)*\n_Comprehensive protection and support. Explore personalized schemes, compare benefits, and find the perfect coverage for you!_\n\n*3. Empaneled Hospitals*\n_Discover trusted healthcare partners near you. Check facilities, and access specialized medical services_`,
         },
         footer: {
           text: "Thank you for using HospiSuite",
@@ -33,21 +34,21 @@ export const resendOptionsService = async (userNumber) => {
               type: "reply",
               reply: {
                 id: "id1",
-                title: "ABHA Services",
+                title: "ABHA Registration",
               },
             },
             {
               type: "reply",
               reply: {
                 id: "id2",
-                title: "CMHIS Services",
+                title: "ABHA Care",
               },
             },
             {
               type: "reply",
               reply: {
                 id: "id3",
-                title: "Online Consultation",
+                title: "ABHA Hospitals",
               },
             },
           ],
@@ -60,20 +61,18 @@ export const resendOptionsService = async (userNumber) => {
     const response = await axios.request(options);
     return {
       success: true,
-      message: "ResendOptions message sent successfully",
+      message: "ABHA service messages sent successfully",
       data: response.data,
     };
   } catch (error) {
     console.error(
-      "Error sending ResendOptions message:",
+      "Error sending ABHA service message:",
       error.response ? error.response.data : error.message
     );
     return {
       success: false,
-      error: "Failed to send ResendOptions message",
+      error: "Failed to send ABHA service message",
       details: error.response ? error.response.data : error.message,
     };
   }
 };
-
-

@@ -1,7 +1,7 @@
 import axios from "axios";
 import dotenv from "dotenv";
 dotenv.config();
-export const resendOptionsService = async (userNumber) => {
+export const tempOnlineConsultation = async (userNumber) => {
 
   const options = {
     method: "POST",
@@ -19,37 +19,30 @@ export const resendOptionsService = async (userNumber) => {
         type: "button",
         header: {
           type: "text",
-          text: "Your're back on track! ",
+          text: "Online Doctor consultation 🩺",
         },
         body: {
-          text: "Here’s a list of our services. Let me know how I can assist you! 😊",
+          text: "COMING SOON! 🚀\n\n_We are working tirelessly to integrate online doctor consultations. Soon, you’ll be able to consult a doctor from the comfort of your home with ease!_",
         },
         footer: {
-          text: "Thank you for using HospiSuite",
+          text: "We appreciate your patience and support.",
         },
         action: {
           buttons: [
             {
-              type: "reply",
-              reply: {
-                id: "id1",
-                title: "ABHA Services",
+                type: "reply",
+                reply: {
+                  id: "id1",
+                  title: "Health Schemes Tour",
+                },
               },
-            },
-            {
-              type: "reply",
-              reply: {
-                id: "id2",
-                title: "CMHIS Services",
+              {
+                type: "reply",
+                reply: {
+                  id: "id2",
+                  title: "Improve HospiSuite!",
+                },
               },
-            },
-            {
-              type: "reply",
-              reply: {
-                id: "id3",
-                title: "Online Consultation",
-              },
-            },
           ],
         },
       },

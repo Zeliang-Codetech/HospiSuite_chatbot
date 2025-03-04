@@ -47,6 +47,13 @@ export const healthSchemeService = async (userNumber) => {
                 title: "More on HWCs",
               },
             },
+            // {
+            //   type: "reply",
+            //   reply: {
+            //     id: "id3",
+            //     title: "Online Consultation",
+            //   },
+            // },
           ],
         },
       },

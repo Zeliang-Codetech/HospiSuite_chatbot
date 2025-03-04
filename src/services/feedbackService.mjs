@@ -21,7 +21,7 @@ export const feedbackService = async (userNumber) => {
         type: "button",
         header: {
           type: "text",
-          text: "🤖 Help Us Improve Hospisuite!",
+          text: "🤖 Help Us Improve HospiSuite!",
         },
         body: {
           text: body,

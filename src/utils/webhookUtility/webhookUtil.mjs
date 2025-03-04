@@ -11,7 +11,9 @@ import { stateSelectionService } from "../../services/stateSelectionService.mjs"
 import { districtSelectionService } from "../../services/districtSelectionService.mjs";
 import { listOfDistrictHospitals } from "../../services/listOfDistrictHospitalsService.mjs";
 import { feedbackService } from "../../services/feedbackService.mjs";
-
+import { commonHealthSchemesService } from "../../services/commonHealthSchemesService.mjs";
+import { abhaServices } from "../../services/ABHA/abhaServices.mjs";  
+import { tempOnlineConsultation } from "../../services/tempOnlineConsultation.mjs";
 // utils
 import { callGeminiFlash } from "../ai_utility/ai_Response_flash.mjs";
 import { chatContext } from "../db_utility/fetchChat.mjs";
@@ -19,17 +21,23 @@ import { chatContext } from "../db_utility/fetchChat.mjs";
 // Service router map with O(1) lookup time
 const serviceRouterforButtons = {
   "greeting": greetingService,
-  "health schemes": healthSchemeService,
+  "abha health schemes": healthSchemeService,
   "more about pm-jay": pmJayInfoService,
   "more on hwcs": hwcService,
   "\u2630 menu": resendOptionsService,
   "abha registration": abhaRegistrationService,
-  "insurance schemes": insuranceSchemes,
-  "health & insurance": HealthAndInsuranceService,
-  "empaneled hospitals": stateSelectionService,
+  "abha insurance": insuranceSchemes,
+  "abha care": HealthAndInsuranceService,
+  "abha hospitals": stateSelectionService,
   "select state": stateSelectionService,
   "improve hospisuite!": feedbackService,
+  "health schemes tour": commonHealthSchemesService, 
+  "abha services": abhaServices,
+  "cmhis services": abhaServices,
+  "online consultation": tempOnlineConsultation,
 };
+
+
 
 const serviceRouterforStateLists = {
   nagaland: districtSelectionService,

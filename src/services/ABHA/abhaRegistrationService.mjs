@@ -46,6 +46,13 @@ export const abhaRegistrationService = async (userNumber) => {
                 title: "Improve Hospisuite!",
               },
             },
+            // {
+            //   type: "reply",
+            //   reply: {
+            //     id: "ID_3",
+            //     title: "Online Consultation",
+            //   },
+            // },
           ],
         },
       },

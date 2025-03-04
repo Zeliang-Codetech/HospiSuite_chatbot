@@ -81,16 +81,20 @@ export const setUserState = (req, res, next) => {
     } else {
       // Check for specific commands
       switch (formattedMsg) {
-        case "health schemes":
-        case "insurance schemes":
+        case "abha health schemes":
+        case "abha insurance":
         case "abha registration":
         case "more about pm-jay":
         case "more on hwcs":
-        case "health & insurance":
-        case "empaneled hospitals":
+        case "abha care":
+        case "abha hospitals":
         case "\u2630 menu":
         case "state":
         case "improve hospisuite!":
+        case "online consultation":
+        case "health schemes tour":
+        case "abha services": 
+        case "cmhis services":
           req.userMsg = formattedMsg;
           req.query = "";
           break;

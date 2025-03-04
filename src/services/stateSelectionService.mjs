@@ -22,10 +22,10 @@ const options = {
         text: "Find ABHA empaneled hospitals",
       },
       body: {
-        text: "Please select your state by tapping Select your state. 🌍✨\n\n *PS : * During the prototype phase, only Nagaland is available. 😊 However, additional states will be included in future updates. Stay tuned! 🚀 ",
+        text: "Please select your state by tapping Select your state. 🌍✨\n\n _In this initial release for HospiSuite, our empaneled hospital services will be available exclusively for Nagaland, with plans to expand soon in the upcoming releases.. Stay tuned!_ 🚀 ",
       },
       footer: {
-        text: "Thank you for using hospisuite",
+        text: "We appreciate your patience and support!",
       },
       action: {
         button: "Select your state",

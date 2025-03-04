@@ -52,15 +52,22 @@ export const listOfDistrictHospitals = async (userNumber, district) => {
               {
                 type: "reply",
                 reply: {
-                  id: "ID_1",
+                  id: "id_1",
                   title: "Select State",
                 },
               },
               {
                 type: "reply",
                 reply: {
-                  id: "ID_2",
+                  id: "id_2",
                   title: "☰ Menu",
+                },
+              },
+              {
+                type: "reply",
+                reply: {
+                  id: "id_3",
+                  title: "Online Consultation",
                 },
               },
             ],
