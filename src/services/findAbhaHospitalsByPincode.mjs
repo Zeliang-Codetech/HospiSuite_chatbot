@@ -3,11 +3,15 @@ import dotenv from "dotenv";
 dotenv.config();
 import Hospitals_name from "../model/hospitalList.mjs";
 
-export const listOfDistrictHospitals = async (userNumber, district) => {
+export const abhaHospitalsByPincode = async (userNumber, pincode) => {
+  let pinNumber = parseInt(pincode);
+  let district;
+  console.log(`This is the pin number ${pinNumber}`);
+
   try {
     // Get hospitals data
-    const distHospitals = await Hospitals_name(district);
-
+    const distHospitals = await Hospitals_name(pinNumber);
+    district = distHospitals[0].District;
     // Build message body using array join instead of string concatenation
     const messageBody = distHospitals
       .map(
@@ -20,7 +24,7 @@ export const listOfDistrictHospitals = async (userNumber, district) => {
       .join("");
 
     console.log(
-      `retrieving list of hospitals ${JSON.stringify(distHospitals, null, 2)}`
+      `retrieving list of hospitals for ${distHospitals[0].District} (${pinNumber})`
     );
 
     const options = {
@@ -39,23 +43,16 @@ export const listOfDistrictHospitals = async (userNumber, district) => {
           type: "button",
           header: {
             type: "text",
-            text: `ABHA empaneled hospitals under ${district.toUpperCase()} district`,
+            text: `ABHA empaneled hospitals for ${district} (${pinNumber})`,
           },
           body: {
             text: messageBody,
           },
           footer: {
-            text: "Tap the *Menu* button or choose a state 😊",
+            text: "Tap the *Menu* to explore options 😊",
           },
           action: {
             buttons: [
-              {
-                type: "reply",
-                reply: {
-                  id: "id_1",
-                  title: "Select State",
-                },
-              },
               {
                 type: "reply",
                 reply: {
@@ -63,13 +60,13 @@ export const listOfDistrictHospitals = async (userNumber, district) => {
                   title: "☰ Menu",
                 },
               },
-              {
-                type: "reply",
-                reply: {
-                  id: "id_3",
-                  title: "Online Consultation",
-                },
-              },
+              // {
+              //   type: "reply",
+              //   reply: {
+              //     id: "id_3",
+              //     title: "Online Consultation",
+              //   },
+              // },
             ],
           },
         },

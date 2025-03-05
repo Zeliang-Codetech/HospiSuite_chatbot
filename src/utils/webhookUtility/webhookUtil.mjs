@@ -7,13 +7,13 @@ import { hwcService } from "../../services/ABHA/abhaHwcService.mjs";
 import { insuranceSchemes } from "../../services/ABHA/abhaInsuranceSchemesService.mjs";
 import { sendAiResponseService } from "../../services/sendAIresponse.mjs";
 import { HealthAndInsuranceService } from "../../services/ABHA/abhaHealthAndInsuranceService.mjs";
-import { stateSelectionService } from "../../services/stateSelectionService.mjs";
-import { districtSelectionService } from "../../services/districtSelectionService.mjs";
-import { listOfDistrictHospitals } from "../../services/listOfDistrictHospitalsService.mjs";
 import { feedbackService } from "../../services/feedbackService.mjs";
 import { commonHealthSchemesService } from "../../services/commonHealthSchemesService.mjs";
 import { abhaServices } from "../../services/ABHA/abhaServices.mjs";  
 import { tempOnlineConsultation } from "../../services/tempOnlineConsultation.mjs";
+import { getAbhaHospitalLocationbyPincode } from "../../services/getLocationbyPincode.mjs";
+import { abhaHospitalsByPincode } from "../../services/findAbhaHospitalsByPincode.mjs";
+
 // utils
 import { callGeminiFlash } from "../ai_utility/ai_Response_flash.mjs";
 import { chatContext } from "../db_utility/fetchChat.mjs";
@@ -28,8 +28,7 @@ const serviceRouterforButtons = {
   "abha registration": abhaRegistrationService,
   "abha insurance": insuranceSchemes,
   "abha care": HealthAndInsuranceService,
-  "abha hospitals": stateSelectionService,
-  "select state": stateSelectionService,
+  "abha hospitals": getAbhaHospitalLocationbyPincode,
   "improve hospisuite!": feedbackService,
   "health schemes tour": commonHealthSchemesService, 
   "abha services": abhaServices,
@@ -39,46 +38,42 @@ const serviceRouterforButtons = {
 
 
 
-const serviceRouterforStateLists = {
-  nagaland: districtSelectionService,
-};
-
 export async function handleUserInteraction (options = {}){
   const {
     senderNumber,
     senderName,
-    locationType = '',
-    location = '',
     query = '',
-    userMessage
+    userMessage, 
+    pinStatus,
   } = options;
 
         try {
           let button_result = null;
           let ai_result = null;
           const buttonBasedService = serviceRouterforButtons[userMessage];
-          const listBasedServiceforState = serviceRouterforStateLists[location];
 
-          // specific commands button based
-          if (buttonBasedService) {
+    
+  if(userMessage === "abha hospitals" && pinStatus === "awaiting pincode") {
+    // abha hospitals button was just clicked by the user
+    // initialise a new object with the user number as key with pincode as an empty
+    // send  get location by pincode message service here 
+    button_result = await buttonBasedService(senderNumber); 
+  }else if (pinStatus === "captured pincode"){
+    button_result = await abhaHospitalsByPincode(senderNumber, userMessage);
+  }else if (buttonBasedService) {
             console.log("Button based command processed successfully!");
             button_result = await buttonBasedService(
               senderNumber,
               senderName ?? undefined
             );
-          } else if (listBasedServiceforState && locationType === "state") {
-            console.log("state selection processed successfully!");
-            button_result = await listBasedServiceforState(senderNumber);
-          } else if (locationType == "district" && query === "") {
-            console.log("district selection processed successfully!");
-            button_result = await listOfDistrictHospitals(senderNumber, location);
-          }else if (query != "" && location == "" && locationType == "") {
+          }else if (query && query != "") {
             try {
-              let userChatHistory = await chatContext(senderNumber); //fetching AI-chat history  form redis & DB_____
+               //fetching AI-chat history  form redis & DB_____
+              let userChatHistory = await chatContext(senderNumber);
               if (userChatHistory)
-                console.log(
-                  `\n\nchat history fetched in controller of type: ${typeof userChatHistory}`
-                );
+                // console.log(
+                //   `\n\nchat history fetched in controller of type: ${typeof userChatHistory}`
+                // );
               // // send the query, the chathistory from the db and the user number to the AI service
               ai_result = await callGeminiFlash(
                 query,

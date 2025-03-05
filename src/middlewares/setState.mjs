@@ -1,8 +1,3 @@
-import {
-  indianStates,
-  nagalandDistricts,
-} from "../utils/constants/statesAndDistricts.mjs";
-
 const greetings = [
   "Hi",
   "Hello",
@@ -38,12 +33,14 @@ const greetings = [
 
 export const setUserState = (req, res, next) => {
   let userMsg = req.user.msg;
+  let location = req.user?.location || "";
   console.log(`from setState Middleware : ${userMsg}`);
   console.log("Message type:", req.user.messageType);
   console.log("Interactive type:", req.user.interactiveType);
-
   let formattedMsg = userMsg.toLowerCase();
-  // Handle interactive messages first (buttons/lists)
+
+
+     // Handle interactive messages first (buttons/lists)
   if (req.user.messageType === "interactive") {
     req.userMsg = formattedMsg;
     req.query = ""; // No AI query for interactive messages
@@ -51,29 +48,12 @@ export const setUserState = (req, res, next) => {
 
     // If it's a list selection
     if (req.user.interactiveType === "list") {
-      const location = formattedMsg;
-      // Handle state and district selections
-      if (indianStates.some((state) => state.toLowerCase() === location)) {
-        // This is a state selection
-        req.location = location;
-        req.locationType = "state";
-        console.log("State selected");
-      } else if ( nagalandDistricts.some((district) => district.toLowerCase() === location)) {
-        req.location = location;
-        req.locationType ="district";
-        console.log("District selected");
-      } else {
-        console.log(`Invalid location selected: ${location}`);
-      }
     }
   } else {
-    req.location = "";
-    req.locationType = "";
     // Handle text messages
     let isGreeting = greetings.some(
       (greet) => formattedMsg.trim() === greet.toLowerCase()
     );
-
     if (isGreeting) {
       console.log("User sends a greeting message");
       req.userMsg = "greeting";
@@ -87,7 +67,6 @@ export const setUserState = (req, res, next) => {
         case "more about pm-jay":
         case "more on hwcs":
         case "abha care":
-        case "abha hospitals":
         case "\u2630 menu":
         case "state":
         case "improve hospisuite!":
@@ -95,27 +74,33 @@ export const setUserState = (req, res, next) => {
         case "health schemes tour":
         case "abha services": 
         case "cmhis services":
+        case "abha hospitals":
           req.userMsg = formattedMsg;
           req.query = "";
           break;
+        
         default:
-          // If no specific command matched, treat as AI query
-          req.userMsg = formattedMsg;
-          req.query = formattedMsg;
-          console.log(
-            "user typed a query, passing control to webhook controller ---->"
-          );
-          break;
+            // If no specific command matched, check if the user enters a pincode or treat it as an AI query
+            req.userMsg = formattedMsg;
+            if (location === "") {
+                req.query = formattedMsg;
+                console.log("User typed a query, passing control to webhook controller ---->");
+            } else if(location === 'awaiting pincode') {
+              // wait for user to enter a pincode
+                req.query = "";
+                req.userMsg = formattedMsg;
+                console.log(`Awaiting pincode from user: ==------------------------------------------------------- , ${formattedMsg}`);
+            }else if (location === "captured pincode") {
+              req.query = "";
+              req.userMsg = formattedMsg;
+              console.log(`User sent a pincode: --------------------------------------------------------------------  , ${formattedMsg}`);
+            }else{
+              console.log(`could not parse user message! , ${formattedMsg}`);
+            }
+            break;
       }
     }
   }
-
-  console.log("Final processed request:", {
-    userMsg: req.userMsg,
-    query: req.query,
-    location: req.location, 
-    locationType: req.locationType
-  });
 
   next();
 };
